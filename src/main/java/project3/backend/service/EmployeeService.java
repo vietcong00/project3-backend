@@ -1,16 +1,21 @@
 package project3.backend.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import project3.backend.domain.response.BaseResponse;
 import project3.backend.domain.response.EmployeeListResponse;
 import project3.backend.domain.response.EmployeeResponse;
 import project3.backend.helper.helper.JwtTokenUtil;
+import project3.backend.helper.helper.Regex;
 import project3.backend.model.*;
 import project3.backend.repository.EmployeeRepository;
+import project3.backend.repository.EmployeeRoleRepository;
+import project3.backend.repository.RoleRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 @Service
@@ -20,6 +25,12 @@ public class EmployeeService extends CommonService {
 
     @Autowired
     EmployeeRepository employeeRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Autowired
+    EmployeeRoleRepository employeeRoleRepository;
 
     public EmployeeResponse checkLogin(Employee employee) {
         EmployeeResponse employeeResponse = new EmployeeResponse();
@@ -113,15 +124,15 @@ public class EmployeeService extends CommonService {
         token = token.replace("Bearer ", "");
         Employee employee = employeeRepository.findByTokenEmployee(token);
         //  System.out.println(token);
-        if(employee == null){
+        if (employee == null) {
             baseResponse.setCode("999");
             baseResponse.setMessage("replace login");
-        }else {
+        } else {
             baseResponse.setCode("200");
             baseResponse.setMessage("success !");
         }
 
-        return  baseResponse;
+        return baseResponse;
     }
 
     public EmployeeListResponse getAllEmployee(String token) {
@@ -139,4 +150,58 @@ public class EmployeeService extends CommonService {
         }
         return employeeListResponse;
     }
+
+    public EmployeeResponse saveEmployee(String token, Employee employee) {
+        EmployeeResponse employeeResponse = new EmployeeResponse();
+        Employee oldEmployee = employeeRepository.findByIdEmployee(employee.getIdEmployee());
+        if (employee.getIdEmployee() == -1) {
+            if (checkToken(token, thisPage, "add")) {
+                if (!employee.getEmailEmployee().matches(Regex.EMAIL_REGEX)) {
+                    employeeResponse.setCode("201");
+                    employeeResponse.setMessage("Wrong format email !");
+                } else if (!employee.getPhoneEmployee().matches(Regex.PHONE_REGREX)) {
+                    employeeResponse.setCode("202");
+                    employeeResponse.setMessage("Wrong format phone !");
+                } else if (employeeRepository.findByEmailEmployee(employee.getEmailEmployee()) != null) {
+                    employeeResponse.setCode("203");
+                    employeeResponse.setMessage("Email already exists !");
+                } else if (employeeRepository.findByPhoneEmployee(employee.getPhoneEmployee()) != null) {
+                    employeeResponse.setCode("204");
+                    employeeResponse.setMessage("Phone already exists !");
+                } else if (employeeRepository.findByEmailEmployee(employee.getUsernameEmployee()) != null) {
+                    employeeResponse.setCode("205");
+                    employeeResponse.setMessage("User already exists !");
+                } else {
+                    employeeRepository.save(employee);
+                    Employee newEmployee = employeeRepository.findByEmailEmployee(employee.getEmailEmployee());
+                    System.out.println(employee.getEmailEmployee());
+                    employeeRoleRepository.save(new EmployeeRole(roleRepository.findByNameRole(employee.getPositionEmployee()).getIdRole(), newEmployee.getIdEmployee()));
+
+                    employeeResponse.setCode("200");
+                    employeeResponse.setMessage("Insert Employee success");
+                    employeeResponse.setEmployee(newEmployee);
+
+                }
+            }
+        } else {
+            if (checkToken(token, thisPage, "edit")) {
+                if (!employee.getPhoneEmployee().matches(Regex.PHONE_REGREX)) {
+                    employeeResponse.setCode("202");
+                    employeeResponse.setMessage("Wrong format phone !");
+                } else {
+
+                    employee.setPasswordEmployee(oldEmployee.getPasswordEmployee());
+                    employee.setEmailEmployee(oldEmployee.getEmailEmployee());
+                    employee.setUsernameEmployee(oldEmployee.getUsernameEmployee());
+                    employeeResponse.setCode("000");
+                    employeeResponse.setMessage("Edit Employee success");
+                    employeeResponse.setEmployee(employee);
+                    employeeRepository.save(employee);
+                    employeeRoleRepository.findByIdEmployee(employee.getIdEmployee()).get(0).setIdEmployeeRole(roleRepository.findByNameRole(employee.getPositionEmployee()).getIdRole());
+                }
+            }
+        }
+        return employeeResponse;
+    }
+
 }

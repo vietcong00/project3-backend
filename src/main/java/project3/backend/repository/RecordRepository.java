@@ -8,4 +8,6 @@ import java.util.List;
 public interface RecordRepository extends JpaRepository<Record, Integer> {
     @Override
     List<Record> findAll();
+    Record findByIdRecord(int idRecord);
+    List<Record> findByIdEmployee(int idEmployee);
 }

@@ -44,4 +44,9 @@ public class EmployeeRole {
     public void setIdEmployee(int idEmployee) {
         this.idEmployee = idEmployee;
     }
+
+    public EmployeeRole(int idRole, int idEmployee) {
+        this.idRole = idRole;
+        this.idEmployee = idEmployee;
+    }
 }

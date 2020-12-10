@@ -18,4 +18,9 @@ public class TimeHelper {
         return sqlDate;
 
     }
+
+    public long subTime(Date date){
+        Date nowDate= new Date();
+        return  (nowDate.getTime()-date.getTime())/1000;
+    }
 }

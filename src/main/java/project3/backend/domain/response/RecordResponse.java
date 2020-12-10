@@ -1,16 +1,18 @@
 package project3.backend.domain.response;
 
 import project3.backend.model.Record;
-import project3.backend.model.PageAction;
+import project3.backend.model.Mistake;
+import project3.backend.model.RecordMistake;
 
 import java.util.List;
 
 public class RecordResponse extends BaseResponse {
+
     Record record;
 
-    List<PageAction> pageActionList;
+    List<Mistake> mistakeList;
 
-
+    List<RecordMistake> recordMistakeList;
     public Record getRecord() {
         return record;
     }
@@ -19,11 +21,19 @@ public class RecordResponse extends BaseResponse {
         this.record = record;
     }
 
-    public List<PageAction> getPageActionList() {
-        return pageActionList;
+    public List<Mistake> getMistakeList() {
+        return mistakeList;
     }
 
-    public void setPageActionList(List<PageAction> pageActionList) {
-        this.pageActionList = pageActionList;
+    public void setMistakeList(List<Mistake> mistakeList) {
+        this.mistakeList = mistakeList;
+    }
+
+    public List<RecordMistake> getRecordMistakeList() {
+        return recordMistakeList;
+    }
+
+    public void setRecordMistakeList(List<RecordMistake> recordMistakeList) {
+        this.recordMistakeList = recordMistakeList;
     }
 }

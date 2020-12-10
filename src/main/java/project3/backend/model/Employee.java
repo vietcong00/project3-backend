@@ -131,4 +131,30 @@ public class Employee {
     public void setStatusEmployee(String statusEmployee) {
         this.statusEmployee = statusEmployee;
     }
+
+    public Employee(int idEmployee, String nameEmployee, String usernameEmployee, Date dateofbirthEmployee, String emailEmployee, String passwordEmployee, String phoneEmployee, String addressEmployee, String positionEmployee, String tokenEmployee, String statusEmployee) {
+        this.idEmployee = idEmployee;
+        this.nameEmployee = nameEmployee;
+        this.usernameEmployee = usernameEmployee;
+        this.dateofbirthEmployee = dateofbirthEmployee;
+        this.emailEmployee = emailEmployee;
+        this.passwordEmployee = passwordEmployee;
+        this.phoneEmployee = phoneEmployee;
+        this.addressEmployee = addressEmployee;
+        this.positionEmployee = positionEmployee;
+        this.tokenEmployee = tokenEmployee;
+        this.statusEmployee = statusEmployee;
+    }
+
+    public Employee(String nameEmployee, String usernameEmployee, Date dateofbirthEmployee, String emailEmployee, String passwordEmployee, String phoneEmployee, String addressEmployee, String positionEmployee, String statusEmployee) {
+        this.nameEmployee = nameEmployee;
+        this.usernameEmployee = usernameEmployee;
+        this.dateofbirthEmployee = dateofbirthEmployee;
+        this.emailEmployee = emailEmployee;
+        this.passwordEmployee = passwordEmployee;
+        this.phoneEmployee = phoneEmployee;
+        this.addressEmployee = addressEmployee;
+        this.positionEmployee = positionEmployee;
+        this.statusEmployee = statusEmployee;
+    }
 }

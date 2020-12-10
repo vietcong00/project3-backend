@@ -38,22 +38,15 @@ public class Record {
     @Column(name = "link_record")
     private String linkRecord;
 
+    @Column(name = "lasttimecomment_record")
+    private Date lastTimeCommentRecord;
+
+    @Column(name = "status_record")
+    private String statusRecord;
+
     public Record() {
     }
 
-
-    public Record(int idRecord, int idEmployee, String phoneCustomer, Date creatDateRecord, Date createTimeRecord, Date endTimeRecord, int scoreRecord, int lastIdSupervisor, String descriptionRecord, String linkRecord) {
-        this.idRecord = idRecord;
-        this.idEmployee = idEmployee;
-        this.phoneCustomer = phoneCustomer;
-        this.creatDateRecord = creatDateRecord;
-        this.createTimeRecord = createTimeRecord;
-        this.endTimeRecord = endTimeRecord;
-        this.scoreRecord = scoreRecord;
-        this.lastIdSupervisor = lastIdSupervisor;
-        this.descriptionRecord = descriptionRecord;
-        this.linkRecord = linkRecord;
-    }
 
     public int getIdRecord() {
         return idRecord;
@@ -133,5 +126,36 @@ public class Record {
 
     public void setLastIdSupervisor(int lastIdSupervisor) {
         this.lastIdSupervisor = lastIdSupervisor;
+    }
+
+    public Date getLastTimeCommentRecord() {
+        return lastTimeCommentRecord;
+    }
+
+    public void setLastTimeCommentRecord(Date lastTimeCommentRecord) {
+        this.lastTimeCommentRecord = lastTimeCommentRecord;
+    }
+
+    public String getStatusRecord() {
+        return statusRecord;
+    }
+
+    public void setStatusRecord(String statusRecord) {
+        this.statusRecord = statusRecord;
+    }
+
+    public Record(int idRecord, int idEmployee, String phoneCustomer, Date creatDateRecord, Date createTimeRecord, Date endTimeRecord, int scoreRecord, int lastIdSupervisor, String descriptionRecord, String linkRecord, Date lastTimeCommentRecord, String statusRecord) {
+        this.idRecord = idRecord;
+        this.idEmployee = idEmployee;
+        this.phoneCustomer = phoneCustomer;
+        this.creatDateRecord = creatDateRecord;
+        this.createTimeRecord = createTimeRecord;
+        this.endTimeRecord = endTimeRecord;
+        this.scoreRecord = scoreRecord;
+        this.lastIdSupervisor = lastIdSupervisor;
+        this.descriptionRecord = descriptionRecord;
+        this.linkRecord = linkRecord;
+        this.lastTimeCommentRecord = lastTimeCommentRecord;
+        this.statusRecord = statusRecord;
     }
 }

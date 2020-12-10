@@ -40,4 +40,10 @@ public class RestEmployeeController {
     public ResponseEntity<EmployeeListResponse> getAllUser(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(employeeService.getAllEmployee(token));
     }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/saveEmployee")
+    public ResponseEntity<EmployeeResponse> saveUser(@RequestHeader("Authorization") String token,@RequestBody Employee employee) {
+        return ResponseEntity.ok(employeeService.saveEmployee(token,employee));
+    }
 }
